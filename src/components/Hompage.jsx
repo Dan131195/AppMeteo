@@ -458,8 +458,8 @@ function Homepage() {
                     </div>
 
                     {/* Meteo 3h x 3h barra orizzontale */}
-                    <div className="container rounded-4 mb-4 pt-2 text-center animate-fade-up">
-                      <div className="d-flex m-auto overflow-auto weatherTrheeHours px-2">
+                    <div className="container rounded-4 mb-4 pt-2 animate-fade-up">
+                      <div className="d-flex justify-content-lg-center m-auto text-center overflow-auto weatherTrheeHours px-2">
                         {weatherTrheeHours ? (
                           weatherTrheeHours.map((a, i) => {
                             const [dateStr, timeStr] = a.dt_txt.split(" ");
