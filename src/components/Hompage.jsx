@@ -347,8 +347,8 @@ function Homepage() {
   return (
     <div style={containerStyle} id="weather-app">
       <div id="content" className="d-flex flex-column">
-        <nav className="navbar navbar-expand-lg container">
-          <div className="container-fluid d-flex justify-content-between">
+        <nav className="navbar navbar-expand-md container">
+          <div className="container-fluid px-md-3 d-flex justify-content-between">
             <p className="navbar-brand m-0 text-light fw-bold">
               <img
                 src={WeatherAppIcon}
@@ -356,7 +356,7 @@ function Homepage() {
                 className="me-2 border border-2 rounded-4"
                 alt="Weather App Icon"
               />
-              WeatherApp
+              WeatherApp | Dan_1395
             </p>
             <button
               className="navbar-toggler py-3"
@@ -373,18 +373,18 @@ function Homepage() {
             </button>
 
             <div
-              className="collapse navbar-collapse my-2 text-center"
+              className="collapse navbar-collapse my-2 text-center col-md-6 col-lg-5 flex-md-grow-0 ps-md-2"
               id="navbarSupportedContent"
             >
               <form
-                className="bg-opacity rounded-4 ps-3 py-4 d-inline"
+                className="bg-opacity rounded-4 ps-3 py-4 d-inline d-md-flex align-items-center flex-md-grow-1 py-md-2 pe-md-2"
                 role="search"
                 onSubmit={handleSubmit}
               >
                 <input
                   className="form-control bg-transparent text-light d-inline"
                   type="search"
-                  placeholder="Es. Londra"
+                  placeholder="Es. Roma, it"
                   aria-label="Search"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
@@ -422,260 +422,271 @@ function Homepage() {
         {weatherData && !error && (
           <main className="text-center flex-grow-1">
             <div className="container p-3 ">
-              <div className="bg-opacity rounded-4 mb-3 pt-2 animate-fade-up">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div className="ps-4">
-                    <div className="">
-                      <p className="fs-1 m-0">
-                        <img src={locationIcon} alt="" width={40} />
-                        {weatherData.name}{" "}
-                        <span className=" fs-6 opacity-75">
-                          ({weatherData.sys.country})
-                        </span>
-                      </p>
-                    </div>
-
-                    <p className="display-1 ps-3">
-                      {Math.floor(weatherData.main.temp)}°
-                    </p>
-
-                    <p className="fs-5 ps-3 mb-0 capitalize-first">
-                      {weatherData.weather[0].description}
-                    </p>
-                    <p className="">
-                      {tempMin}° / {tempMax}°
-                    </p>
-                  </div>
-
-                  {/* Per selezionare le icone personalizzate con la funzione */}
-                  <img
-                    src={getCustomIcon(weatherData.weather[0].icon)}
-                    alt={weatherData.weather[0].description}
-                    id="weatherIcon"
-                  />
-                </div>
-              </div>
-
-              {/* Meteo 3h x 3h barra orizzontale */}
-
-              <div className="container bg-opacity rounded-4 mb-4 pt-2 text-center animate-fade-up">
-                <div className="d-flex m-auto overflow-auto weatherTrheeHours px-2">
-                  {weatherTrheeHours ? (
-                    weatherTrheeHours.map((a, i) => {
-                      const [dateStr, timeStr] = a.dt_txt.split(" ");
-                      const date = a.dt_txt.split(" ")[0].split("-");
-                      const time = timeStr.slice(0, 5);
-
-                      return (
-                        <div
-                          key={i}
-                          className="mx-3 text-center d-flex flex-column justify-content-between "
-                        >
-                          <p className="m-0">{time}</p>
-                          <p
-                            style={{ fontSize: "0.7em" }}
-                          >{`${date[2]}/${date[1]}`}</p>
-
-                          <div className="mb-1">
-                            {" "}
-                            <img
-                              src={getCustomIcon(a.weather[0].icon)}
-                              className="iconThreeHours"
-                            />
-                          </div>
-                          <p>{Math.floor(a.main.temp)}°</p>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <p>Caricamento..</p>
-                  )}
-                </div>
-              </div>
-
-              {/*Card meteo settimanale (6 giorni)  */}
-
-              <div className="container bg-opacity rounded-4 mb-4 py-2 animate-fade-up">
-                <div className=" weatherWeekDays mb-2 p-2">
-                  {weatherWeekDays ? (
-                    weatherWeekDays.slice(1).map((day, i) => {
-                      const d = new Date(day.date);
-
-                      const giorno = d.toLocaleDateString("it-IT", {
-                        day: "numeric",
-                      });
-                      const mese = d.toLocaleDateString("it-IT", {
-                        month: "2-digit",
-                      });
-
-                      const giornoGrezzo = d
-                        .toLocaleDateString("it-IT", { weekday: "short" })
-                        .replace(".", "");
-                      const giornoSettimana =
-                        giornoGrezzo.charAt(0).toUpperCase() +
-                        giornoGrezzo.slice(1);
-
-                      return (
-                        <div
-                          key={i}
-                          className=" d-flex align-items-center justify-content-between"
-                        >
-                          <p className="m-0">{`${giorno}/${mese} ${giornoSettimana}`}</p>
-
-                          <img
-                            src={getMeteoIcon(day.day.condition_code)}
-                            alt="Icona meteo"
-                            style={{
-                              width: "70px",
-                              height: "70px",
-                              objectFit: "contain",
-                            }}
-                          />
-
-                          <p className="m-0">
-                            {Math.round(day.day.mintemp_c)}° /{" "}
-                            {Math.round(day.day.maxtemp_c)}°
+              <div className="row g-3">
+                <div className="col-md-6 col-lg-7">
+                  <div className="bg-opacity rounded-4 pt-2 animate-fade-up h-100 d-flex flex-column">
+                    <div className="mb-3 mb-md-0 d-flex justify-content-between justify-content-lg-center gap-lg-5 align-items-center flex-grow-1">
+                      <div className="ps-4">
+                        <div className="">
+                          <p className="fs-1 m-0">
+                            <img src={locationIcon} alt="" width={40} />
+                            {weatherData.name}{" "}
+                            <span className=" fs-6 opacity-75">
+                              ({weatherData.sys.country})
+                            </span>
                           </p>
                         </div>
-                      );
-                    })
-                  ) : (
-                    <p>Caricamento previsioni settimanali...</p>
-                  )}
-                </div>
-                <div className="text-center mb-2">
-                  <a
-                    href={`https://www.ilmeteo.it/meteo/${city}`}
-                    className="bg-opacity text-decoration-none text-light rounded-4 py-2 px-4"
-                    id="LinkIlMeteo"
-                    target="blank"
-                  >
-                    Visualizza dettagli
-                  </a>
-                </div>
-              </div>
 
-              {/* CARDS Informazioni aggiuntive */}
+                        <p className="display-1 ps-3">
+                          {Math.floor(weatherData.main.temp)}°
+                        </p>
 
-              <div className="cardsContainer row row-cols-2 row-cols-lg-3 g-2">
-                <div className="col ">
-                  <div className=" text-center rounded-4 bg-opacity h-100 pt-3 animate-fade-up">
-                    <div className="">
-                      <img src={windIcon} alt="" width={30} />
+                        <p className="fs-5 ps-3 mb-0 capitalize-first">
+                          {weatherData.weather[0].description}
+                        </p>
+                        <p className="">
+                          {tempMin}° / {tempMax}°
+                        </p>
+                      </div>
+
+                      {/* Per selezionare le icone personalizzate con la funzione */}
+                      <img
+                        src={getCustomIcon(weatherData.weather[0].icon)}
+                        alt={weatherData.weather[0].description}
+                        id="weatherIcon"
+                      />
                     </div>
-                    <p className="m-0 fs-6">
-                      {Math.floor(weatherData.wind.speed)} Km/h
+
+                    {/* Meteo 3h x 3h barra orizzontale */}
+                    <div className="container rounded-4 mb-4 pt-2 text-center animate-fade-up">
+                      <div className="d-flex m-auto overflow-auto weatherTrheeHours px-2">
+                        {weatherTrheeHours ? (
+                          weatherTrheeHours.map((a, i) => {
+                            const [dateStr, timeStr] = a.dt_txt.split(" ");
+                            const date = a.dt_txt.split(" ")[0].split("-");
+                            const time = timeStr.slice(0, 5);
+
+                            return (
+                              <div
+                                key={i}
+                                className="mx-3 text-center d-flex flex-column justify-content-between "
+                              >
+                                <p className="m-0">{time}</p>
+                                <p
+                                  style={{ fontSize: "0.7em" }}
+                                >{`${date[2]}/${date[1]}`}</p>
+
+                                <div className="mb-1">
+                                  {" "}
+                                  <img
+                                    src={getCustomIcon(a.weather[0].icon)}
+                                    className="iconThreeHours"
+                                  />
+                                </div>
+                                <p>{Math.floor(a.main.temp)}°</p>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <p>Caricamento..</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/*Card meteo settimanale (6 giorni)  */}
+                <div className="col-md-6 col-lg-5">
+                  <div className="container bg-opacity rounded-4 py-2 animate-fade-up h-100">
+                    <div className=" weatherWeekDays mb-2 p-2">
+                      {weatherWeekDays ? (
+                        weatherWeekDays.slice(1).map((day, i) => {
+                          const d = new Date(day.date);
+
+                          const giorno = d.toLocaleDateString("it-IT", {
+                            day: "numeric",
+                          });
+                          const mese = d.toLocaleDateString("it-IT", {
+                            month: "2-digit",
+                          });
+
+                          const giornoGrezzo = d
+                            .toLocaleDateString("it-IT", { weekday: "short" })
+                            .replace(".", "");
+                          const giornoSettimana =
+                            giornoGrezzo.charAt(0).toUpperCase() +
+                            giornoGrezzo.slice(1);
+
+                          return (
+                            <div
+                              key={i}
+                              className=" d-flex align-items-center justify-content-between"
+                            >
+                              <p className="m-0">{`${giorno}/${mese} ${giornoSettimana}`}</p>
+
+                              <img
+                                src={getMeteoIcon(day.day.condition_code)}
+                                alt="Icona meteo"
+                                style={{
+                                  width: "70px",
+                                  height: "70px",
+                                  objectFit: "contain",
+                                }}
+                              />
+
+                              <p className="m-0">
+                                {Math.round(day.day.mintemp_c)}° /{" "}
+                                {Math.round(day.day.maxtemp_c)}°
+                              </p>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <p>Caricamento previsioni settimanali...</p>
+                      )}
+                    </div>
+                    <div className="text-center mb-2">
+                      <a
+                        href={`https://www.ilmeteo.it/meteo/${city}`}
+                        className="bg-opacity text-decoration-none text-light rounded-4 py-2 px-4"
+                        id="LinkIlMeteo"
+                        target="blank"
+                      >
+                        Visualizza dettagli
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CARDS Informazioni aggiuntive */}
+                <div className="col-md-6 col-lg-7 d-flex flex-column">
+                  <div className="cardsContainer row row-cols-2 row-cols-md-3 g-2 flex-grow-1">
+                    <div className="col ">
+                      <div className=" text-center rounded-4 bg-opacity h-100 pt-3 animate-fade-up">
+                        <div className="">
+                          <img src={windIcon} alt="" width={30} />
+                        </div>
+                        <p className="m-0 fs-6">
+                          {Math.floor(weatherData.wind.speed)} Km/h
+                        </p>
+                        <p className="detailsTitles opacity-75 ">VENTO</p>
+                      </div>
+                    </div>
+
+                    <div className="col ">
+                      <div className=" text-center rounded-4 bg-opacity h-100 pt-3 animate-fade-up">
+                        <div>
+                          <img src={humidityIcon} alt="" width={30} />
+                        </div>
+                        <p className="m-0 fs-6 ">
+                          {weatherData.main.humidity}%
+                        </p>
+                        <p className="detailsTitles opacity-75">UMIDITÀ</p>
+                      </div>
+                    </div>
+
+                    <div className="col">
+                      <div className=" text-center rounded-4  bg-opacity h-100  pt-3 animate-fade-up">
+                        <div>
+                          <img src={visibilityIcon} alt="" width={30} />
+                        </div>
+                        <p className="m-0 fs-6">{weatherData.visibility} m</p>
+                        <p className="detailsTitles opacity-75">VISIBILITÀ</p>
+                      </div>
+                    </div>
+
+                    <div className="col">
+                      <div className=" text-center rounded-4 bg-opacity h-100  pt-3 animate-fade-up">
+                        <div>
+                          <img src={pressureIcon} alt="" width={30} />
+                        </div>
+                        <p className="m-0 fs-6">
+                          {weatherData.main.pressure} hpA
+                        </p>
+                        <p className="detailsTitles opacity-75">PRESSIONE</p>
+                      </div>
+                    </div>
+
+                    <div className="col">
+                      <div className=" text-center rounded-4 bg-opacity h-100  pt-3 animate-fade-up">
+                        <div>
+                          <img src={cloudyIcon} alt="" width={30} />
+                        </div>
+                        <p className="m-0 fs-6">{weatherData.clouds.all} %</p>
+                        <p className="detailsTitles opacity-75">NUVOLOSITÀ</p>
+                      </div>
+                    </div>
+
+                    <div className="col">
+                      <div className=" text-center rounded-4 bg-opacity h-100  pt-3 animate-fade-up">
+                        <div>
+                          <img src={temperatureIcon} alt="" width={30} />
+                        </div>
+                        <p className="m-0 fs-6">
+                          {Math.floor(weatherData.main.feels_like)}°
+                        </p>
+                        <p className="detailsTitles opacity-75">PERCEPITA</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Ciclo solare */}
+                <div className="col-md-6 col-lg-5">
+                  <div className="bg-opacity rounded-4 p-3 animate-fade-up h-100">
+                    <p className="fw-bold mb-3" id="solarCycleTitle">
+                      CICLO SOLARE
                     </p>
-                    <p className="detailsTitles opacity-75 ">VENTO</p>
-                  </div>
-                </div>
 
-                <div className="col ">
-                  <div className=" text-center rounded-4 bg-opacity h-100 pt-3 animate-fade-up">
-                    <div>
-                      <img src={humidityIcon} alt="" width={30} />
-                    </div>
-                    <p className="m-0 fs-6 ">{weatherData.main.humidity}%</p>
-                    <p className="detailsTitles opacity-75">UMIDITÀ</p>
-                  </div>
-                </div>
+                    <div className="d-flex flex-column align-items-center text-light">
+                      <svg
+                        viewBox="0 0 200 100"
+                        width="100%"
+                        style={{ maxWidth: "250px", overflow: "visible" }}
+                      >
+                        <line
+                          x1="10"
+                          y1="90"
+                          x2="190"
+                          y2="90"
+                          stroke="#888"
+                          strokeWidth="2"
+                        />
 
-                <div className="col">
-                  <div className=" text-center rounded-4  bg-opacity h-100  pt-3 animate-fade-up">
-                    <div>
-                      <img src={visibilityIcon} alt="" width={30} />
-                    </div>
-                    <p className="m-0 fs-6">{weatherData.visibility} m</p>
-                    <p className="detailsTitles opacity-75">VISIBILITÀ</p>
-                  </div>
-                </div>
+                        <path
+                          d="M 20 90 A 80 80 0 0 1 180 90"
+                          fill="none"
+                          stroke="#ffb803c7"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeDasharray="7 7"
+                        />
 
-                <div className="col">
-                  <div className=" text-center rounded-4 bg-opacity h-100  pt-3 animate-fade-up">
-                    <div>
-                      <img src={pressureIcon} alt="" width={30} />
-                    </div>
-                    <p className="m-0 fs-6">{weatherData.main.pressure} hpA</p>
-                    <p className="detailsTitles opacity-75">PRESSIONE</p>
-                  </div>
-                </div>
+                        <circle
+                          cx={sunPosition.x}
+                          cy={sunPosition.y}
+                          r="8"
+                          fill="#FFB703"
+                          style={{
+                            transition: "all 2s cubic-bezier(0.25, 1, 0.5, 1)",
+                            boxShadow: "0 0 10px #FFB703",
+                          }}
+                        />
+                      </svg>
 
-                <div className="col">
-                  <div className=" text-center rounded-4 bg-opacity h-100  pt-3 animate-fade-up">
-                    <div>
-                      <img src={cloudyIcon} alt="" width={30} />
-                    </div>
-                    <p className="m-0 fs-6">{weatherData.clouds.all} %</p>
-                    <p className="detailsTitles opacity-75">NUVOLOSITÀ</p>
-                  </div>
-                </div>
-
-                <div className="col">
-                  <div className=" text-center rounded-4 bg-opacity h-100  pt-3 animate-fade-up">
-                    <div>
-                      <img src={temperatureIcon} alt="" width={30} />
-                    </div>
-                    <p className="m-0 fs-6">
-                      {Math.floor(weatherData.main.feels_like)}°
-                    </p>
-                    <p className="detailsTitles opacity-75">PERCEPITA</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Ciclo solare */}
-              <div className="bg-opacity rounded-4 p-3 mt-3 animate-fade-up">
-                <p className="fw-bold mb-3" id="solarCycleTitle">
-                  CICLO SOLARE
-                </p>
-
-                <div className="d-flex flex-column align-items-center text-light">
-                  <svg
-                    viewBox="0 0 200 100"
-                    width="100%"
-                    style={{ maxWidth: "250px", overflow: "visible" }}
-                  >
-                    <line
-                      x1="10"
-                      y1="90"
-                      x2="190"
-                      y2="90"
-                      stroke="#888"
-                      strokeWidth="2"
-                    />
-
-                    <path
-                      d="M 20 90 A 80 80 0 0 1 180 90"
-                      fill="none"
-                      stroke="#ffb803c7"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeDasharray="7 7"
-                    />
-
-                    <circle
-                      cx={sunPosition.x}
-                      cy={sunPosition.y}
-                      r="8"
-                      fill="#FFB703"
-                      style={{
-                        transition: "all 2s cubic-bezier(0.25, 1, 0.5, 1)",
-                        boxShadow: "0 0 10px #FFB703",
-                      }}
-                    />
-                  </svg>
-
-                  <div
-                    className="d-flex justify-content-between w-100 mt-2"
-                    style={{ maxWidth: "280px" }}
-                  >
-                    <div className="text-center">
-                      <p className="m-0 ">Alba</p>
-                      <p className="m-0 fw-bold">{sunrise}</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="m-0 ">Tramonto</p>
-                      <p className="m-0 fw-bold">{sunset}</p>
+                      <div
+                        className="d-flex justify-content-between w-100 mt-2"
+                        style={{ maxWidth: "280px" }}
+                      >
+                        <div className="text-center">
+                          <p className="m-0 ">Alba</p>
+                          <p className="m-0 fw-bold">{sunrise}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="m-0 ">Tramonto</p>
+                          <p className="m-0 fw-bold">{sunset}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

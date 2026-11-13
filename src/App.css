@@ -41,6 +41,14 @@ form {
   max-height: 30px;
 }
 
+/* Da tablet in su l'input occupa tutta la barra di ricerca */
+@media (min-width: 768px) {
+  .form-control {
+    max-width: none;
+    max-height: none;
+  }
+}
+
 .form-control::placeholder {
   color: #fff;
   opacity: 0.5;
